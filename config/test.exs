@@ -1,13 +1,16 @@
 import Config
 
+# Only in tests, remove the complexity from the password hashing algorithm
+config :pbkdf2_elixir, :rounds, 1
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :champions, Champions.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "root",
+  password: "",
   hostname: "localhost",
   database: "champions_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
@@ -18,7 +21,8 @@ config :champions, Champions.Repo,
 config :champions, ChampionsWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "p3c7ADaT3XkFKStU+e3G5Tas90H1WP0irzSQbfKnlXgVPJ40XdVztidVyXE4vlbv",
-  server: false
+  server: true,
+  setup: {:champions, :test_database_setup}
 
 # In test we don't send emails.
 config :champions, Champions.Mailer, adapter: Swoosh.Adapters.Test

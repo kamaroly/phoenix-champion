@@ -362,4 +362,22 @@ defmodule Champions.Accounts do
   def change_user_points(%User{} = user, attrs \\ %{}) do
    User.points_changeset(user, attrs)
   end
+
+  def update_user_points(%User{} = user, points) do
+    user
+    |> change_user_points(%{"points" => points})
+    |> Repo.update()
+  end
+
+  @doc """
+  List users.
+
+  ## Examples
+      iex> list_users()
+      [%User{}]
+  """
+
+  def list_users() do
+    Repo.all(User)
+  end
 end

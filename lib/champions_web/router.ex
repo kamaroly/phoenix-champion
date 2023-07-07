@@ -80,6 +80,8 @@ defmodule ChampionsWeb.Router do
       on_mount: [{ChampionsWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
+      live "/users", UserLive.Index, :index
+      live "/users/:id", UserLive.Show, :show
     end
   end
 end

@@ -520,4 +520,12 @@ defmodule Champions.AccountsTest do
       assert changeset.valid?
     end
   end
+
+
+  describe "list_users/0" do
+    test "Show all users on our system" do
+      user = user_fixture()
+      assert [^user] = Accounts.list_users()
+    end
+  end
 end
